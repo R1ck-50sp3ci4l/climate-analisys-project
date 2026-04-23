@@ -1,6 +1,6 @@
 import random
 import math
-
+import matplotlib.pyplot as plt
 
 def riempi_giorni():
     lista_temperatura=[]
@@ -94,7 +94,32 @@ def moda(lista_giorni):
      print("la moda settimanale è:")
      print(lista_moda)
                 
+def crea_instogramma(dati ,num_bins=10 , titolo="instogramma", colore="skyblue"):
+    plt.figure(figsize=(8, 5))
+    plt.hist(dati, bins=num_bins, color=colore, edgecolor="black", alpha=0.7)
+    plt.title(titolo)
+    plt.xlabel("Valori")
+    plt.ylabel("Frequenza")
+    plt.grid(axis="y", linestyle="--", alpha=0.7)
+    plt.show()
+
+def covarianza(lista_giorni,lista_medie):
+    
+    for i in range(7):
+        if i==6:
+            break
+        t=i+1
+        lista_temperatura=lista_giorni[i]
+        lista_t=lista_giorni[t]
+        lista_covarianza=[]
+       
+        for j in range(24):
             
+            covarianza=(lista_temperatura[j]*lista_medie[i])*(lista_t[j]*lista_medie[i])/len(lista_temperatura)
+            lista_covarianza.append(covarianza)
+        print("le covarianze sono")
+        print(lista_covarianza)
+
 
 
 if __name__ == "__main__":
@@ -114,6 +139,7 @@ if __name__ == "__main__":
     print("la deviazione standard settimanale è:")
     print(G)
     moda(lista_giorni)
+    covarianza(lista_giorni,lista_medie)
 
 
     temperatura_minima(lista_giorni)
@@ -121,8 +147,10 @@ if __name__ == "__main__":
     temperatura_massima(lista_giorni)
     
     varianza(lista_medie,lista_giorni)
+    for i in range(7):
+        lista_temperatura=lista_giorni[i]
+        crea_instogramma(lista_temperatura ,num_bins=10 , titolo="instogramma", colore="skyblue")
     
-
 
 
         
